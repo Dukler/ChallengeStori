@@ -48,7 +48,15 @@ The application uses a PostgreSQL database with the following schema:
   - `monthly_transactions`: Number of transactions per month in the summary.
   - `created_at`: Timestamp when the summary was created.
 
-## Possible improvements
-    - Adding a timeout to close the application in case an unforseen error occurs and it doesn't shutdown.
-    - Maybe not sending the mail summary if an error occurs and a transaction is not proccessed?
-        - In case this happens make I could implement some kind of continuation mechanism where only tx with errors are processed.
+## Possible Improvements
+
+### Adding a Timeout for Shutdown
+
+Implement a timeout mechanism to close the application gracefully in case of an unforeseen error. This ensures that the application doesn't hang indefinitely.
+
+### Handling Errors in Transaction Processing
+
+Consider not sending the summary mail if an error occurs during transaction processing. Implement a continuation mechanism where only transactions with errors are processed in subsequent runs.
+
+
+
