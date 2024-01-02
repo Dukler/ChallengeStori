@@ -59,4 +59,5 @@ Implement a timeout mechanism to close the application gracefully in case of an 
 Considering not sending the summary mail if an error occurs during transaction processing. In such a case a continuation mechanism where only transactions with errors are processed in subsequent runs could be useful.
 
 
-
+## Diagram explanation
+![Diagram](Diagram.png)
