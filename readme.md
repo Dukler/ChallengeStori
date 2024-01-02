@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Stori Bank CSV Parser is a Golang application designed for parsing financial transactions from CSV files, calculating summaries, and storing the parsed transactions along with aggregated summaries in a PostgreSQL database. This application is specifically tailored for the Stori challenge.
+Stori Bank CSV Parser is a Golang application designed for parsing financial transactions from CSV files, calculating summaries, and storing the parsed transactions along with aggregated summaries in a PostgreSQL database.
 
 ## Features
 
@@ -47,3 +47,8 @@ The application uses a PostgreSQL database with the following schema:
   - `balance`: Total balance for the summary.
   - `monthly_transactions`: Number of transactions per month in the summary.
   - `created_at`: Timestamp when the summary was created.
+
+## Possible improvements
+    - Adding a timeout to close the application in case an unforseen error occurs and it doesn't shutdown.
+    - Maybe not sending the mail summary if an error occurs and a transaction is not proccessed?
+        - In case this happens make I could implement some kind of continuation mechanism where only tx with errors are processed.

@@ -30,11 +30,13 @@ func main() {
 	summarizerDone := summarizer.Run()
 
 	p := parser.New(&executionId, store, summarizer, logger)
-	err = p.Run()
+
+	parserDone, err := p.Run()
 	if err != nil {
 		panic(err)
 	}
 
+	<-parserDone
 	<-summarizerDone
 	es.SendSummary(summarizer)
 }

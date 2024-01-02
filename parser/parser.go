@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"io"
 	"log/slog"
+	"sync"
 
 	"github.com/Dukler/ChallengeStori/model"
 	"github.com/Dukler/ChallengeStori/resources"
@@ -27,7 +28,7 @@ func New(executionId *uuid.UUID, store storage.Storage, summarizer *Summarizer, 
 	}
 }
 
-func (p *Parser) Run() error {
+func (p *Parser) Run() (chan struct{}, error) {
 	file := resources.Get("txns.csv")
 	defer file.Close()
 	reader := csv.NewReader(file)
@@ -37,6 +38,8 @@ func (p *Parser) Run() error {
 		panic(err)
 	}
 	records := 0
+	var wg sync.WaitGroup
+	done := make(chan struct{})
 	// Iterate through the records
 	for {
 		record, err := reader.Read()
@@ -56,7 +59,9 @@ func (p *Parser) Run() error {
 			continue
 		}
 		records++
+		wg.Add(1)
 		go func() {
+			defer wg.Done()
 			_, err := p.store.CreateTransaction(p.validRecordToTx(vr))
 			if err != nil {
 				p.l.Info(err.Error())
@@ -64,7 +69,12 @@ func (p *Parser) Run() error {
 		}()
 		go p.sum.writeChannel(vr)
 	}
-	return nil
+	go func() {
+		wg.Wait()
+		close(done)
+	}()
+
+	return done, nil
 }
 
 func (p *Parser) validRecordToTx(vr *validRecord) *model.Transaction {
