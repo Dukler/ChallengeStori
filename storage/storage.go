@@ -10,9 +10,6 @@ import (
 )
 
 const (
-	// host   = "localhost"
-	// port   = 32768
-	// dbname = "postgres"
 	host     = "db"
 	port     = 5432
 	dbname   = "storiDB"

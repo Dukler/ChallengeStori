@@ -7,8 +7,10 @@ import (
 	"net"
 	"net/smtp"
 	"os"
+	"sort"
 	"strings"
 	"text/template"
+	"time"
 
 	"github.com/Dukler/ChallengeStori/parser"
 	"github.com/Dukler/ChallengeStori/resources"
@@ -85,6 +87,12 @@ func getCreditCardData(sum *parser.Summarizer) CreditCardData {
 		tx := Transaction{Month: k, Amount: v}
 		txns = append(txns, tx)
 	}
+	sort.Slice(txns, func(i, j int) bool {
+		timeI, _ := time.Parse("January", txns[i].Month)
+		timeJ, _ := time.Parse("January", txns[j].Month)
+		return timeI.Before(timeJ)
+	})
+
 	return CreditCardData{
 		Transactions:    txns,
 		TotalBalance:    float64(sum.Balance) / 100,
