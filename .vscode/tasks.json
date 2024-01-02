@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start db container",
+            "type": "shell",
+            "command": "docker start c365ca609ab7b3e6af972a727a3737694bbe654d219640802293715d34abf096",
+            "windows": {
+                "command": "docker start c365ca609ab7b3e6af972a727a3737694bbe654d219640802293715d34abf096"
+            },
+            "group": "none",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "runOptions": {
+                "runOn": "folderOpen",
+            }
+        }
+    ]
+}

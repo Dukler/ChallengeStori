@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  stori_test:
+    container_name: StoriTest
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      - EMAIL_ADDRESS=duklerdukler95@gmail.com
+      - EMAIL_PASSWORD=ChallengeStori123
+      - EMAIL_PASSWORD=llzb slwy phcj qohb
+      - EMAIL_RECIPIENTS="8amartin@gmail.com"
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespw
+      - POSTGRES_DB=storiDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .greeting {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .summary {
+            padding: 20px;
+        }
+
+        .summary table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .summary table th,
+        .summary table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .info-text {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .totals {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .totals td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .totals td:first-child {
+            text-align: left;
+            border-right: none;
+        }
+
+        .totals td:last-child {
+            text-align: right;
+            border-left: none;
+        }
+
+        .totals td:nth-child(2) {
+            text-align: center;
+        }
+
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: #888;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <img src="https://i.ibb.co/tzv0rk3/logo.png" alt="Your Logo" style="width: 200px; height: auto;" />
+            <h1>Your Credit Card Summary</h1>
+        </div>
+        <div class="greeting">
+            <p>Hello Customer!</p>
+            <p>Here is your credit card summary for the year.</p>
+        </div>
+        <div class="summary">
+            <table>
+                <tr>
+                    <th>Month</th>
+                    <th>Amount of Transactions</th>
+                </tr>
+                {{range .Transactions}}
+                <tr>
+                    <td>{{.Month}}</td>
+                    <td>{{.Amount}}</td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+        <table class="totals" style="width: 100%;">
+            <tr>
+                <td>
+                    <p class="info-text">Total Balance: {{.TotalBalance}}</p>
+                </td>
+                <td>
+                    <p class="info-text">Average Credit Amount: {{.AvgCreditAmount}}</p>
+                </td>
+                <td>
+                    <p class="info-text">Average Debit Amount: {{.AvgDebitAmount}}</p>
+                </td>
+            </tr>
+        </table>
+        <div class="footer">
+            <p>Thank you for choosing our services.</p>
+            <p>© 2023 Stori</p>
+        </div>
+    </div>
+</body>
+
+</html>
