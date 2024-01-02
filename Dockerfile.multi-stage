@@ -1,10 +1,10 @@
-FROM golang:alpine
+# Build Stage
+FROM golang:alpine AS builder
 
 WORKDIR /app
 
 # Copy only the go.mod and go.sum files to leverage Docker cache
-# COPY go.mod go.sum ./
-COPY go.mod ./
+COPY go.mod go.sum ./
 
 # Download dependencies
 RUN go mod download
@@ -14,6 +14,15 @@ COPY . .
 
 # Build the Go application
 RUN go build -o storiChallenge .
+
+# Final Stage
+FROM alpine:latest
+
+WORKDIR /app
+
+# Copy only the built executable and the 'resources' folder from the build stage
+COPY --from=builder /app/storiChallenge /app/storiChallenge
+COPY --from=builder /app/resources /app/resources
 
 # Expose the port the app runs on
 EXPOSE 8080

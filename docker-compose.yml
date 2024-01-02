@@ -4,7 +4,8 @@ services:
   stori_test:
     container_name: StoriTest
     build:
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: Dockerfile.multi-stage
     ports:
       - 8080:8080
     environment:
